@@ -28,6 +28,12 @@ def clean_data(df):
     return df
 
 
+
+def date_formaatting(df):
+    """Formats the date column to datetime type."""
+    df['transaction_date'] = pd.to_datetime(df['transaction_date'], errors='coerce')
+    return df
+
 def save_cleaned_data(df):
     """ Saved cleaned dataframe to csv"""
 
@@ -39,6 +45,7 @@ def save_cleaned_data(df):
 
 if __name__ == "__main__":
     
-    df = clean_data(ingest_data())
-    cleaned_df = save_cleaned_data(df)
+    df = ingest_data()
+    cleaned_df = clean_data(df)
+    save_cleaned_data(cleaned_df)
     print(cleaned_df.head())
