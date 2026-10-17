@@ -42,11 +42,19 @@ def split_data(df):
     X = df[categorical_features + numerical_features]
     y = df["is_fraud"]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    
     return X_train, X_test, y_train, y_test
 
 
-if __name__ == "__main__":
+
+def main():
     preprocessor = preprocess_data(df)
     X_train, X_test, y_train, y_test = split_data(df)
     print("Data Preprocessing Completed")
     print(f"Training set shape: {X_train.shape}, Testing set shape: {X_test.shape}")
+
+
+
+if __name__ == "__main__":
+    main()
