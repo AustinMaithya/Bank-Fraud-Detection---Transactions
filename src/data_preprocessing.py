@@ -1,5 +1,3 @@
-import pandas as pd
-import numpy as np
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
@@ -43,16 +41,20 @@ def split_data(df):
     y = df["is_fraud"]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    
+
+    print(X)
+    print(y)
+    print(f"Training set shape: {X_train.shape}, Testing set shape: {X_test.shape}")
     return X_train, X_test, y_train, y_test
 
 
 
 def main():
-    preprocessor = preprocess_data(df)
-    X_train, X_test, y_train, y_test = split_data(df)
+    preprocess_data(df)
+    split_data(df)
     print("Data Preprocessing Completed")
-    print(f"Training set shape: {X_train.shape}, Testing set shape: {X_test.shape}")
+    
+    
 
 
 
