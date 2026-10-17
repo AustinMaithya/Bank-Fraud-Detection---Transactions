@@ -6,8 +6,6 @@ from data_ingestion import ingest_data
 df = ingest_data()
 def clean_data(df):
     """Cleans the data by handling missing values and duplicates."""
-
-    
     df = ingest_data()
     # Drop duplicates
     duplicates = df.duplicated().sum()
@@ -32,7 +30,7 @@ def clean_data(df):
 
 def save_cleaned_data(df):
     """ Saved cleaned dataframe to csv"""
-
+    df = clean_data(df)
     cleaned_df = df.copy()
     cleaned_df.to_csv("data/cleaned_data.csv")
     print("Clean Data Saved Successfully")
