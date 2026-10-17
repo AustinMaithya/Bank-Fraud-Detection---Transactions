@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from data_ingestion import ingest_data
+df = ingest_data()
 def clean_data(df):
     """Cleans the data by handling missing values and duplicates."""
 
@@ -29,11 +30,6 @@ def clean_data(df):
 
 
 
-def date_formaatting(df):
-    """Formats the date column to datetime type."""
-    df['transaction_date'] = pd.to_datetime(df['transaction_date'], errors='coerce')
-    return df
-
 def save_cleaned_data(df):
     """ Saved cleaned dataframe to csv"""
 
@@ -43,9 +39,17 @@ def save_cleaned_data(df):
 
     return cleaned_df
 
+
+def date_formaatting(cleaned_df):
+    """Formats the date column to datetime type."""
+    cleaned_df['transaction_date'] = pd.to_datetime(cleaned_df['transaction_date'], errors='coerce')
+    return cleaned_df
+
+
+
 if __name__ == "__main__":
-    
-    df = ingest_data()
+    clean_data(df)
     cleaned_df = clean_data(df)
+    date_formaatting(cleaned_df)
     save_cleaned_data(cleaned_df)
     print(cleaned_df.head())

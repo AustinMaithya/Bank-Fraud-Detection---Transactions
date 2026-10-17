@@ -29,7 +29,7 @@ def histogram_plots(cleaned_df):
     """Generates histogram plots for numerical features."""
 
     numerical_features = ["age","transaction_amount","account_balance"]
-    fig,axes = plt.subplots(figsize = (16,8),nrows = 2,ncols = 2)
+    fig,axes = plt.subplots(figsize = (16,8),nrows = 1,ncols = 3)
     axes = axes.flatten()
     for i, col in enumerate(numerical_features):
         sns.histplot(data=cleaned_df,x=col,ax=axes[i],kde=True)
@@ -60,10 +60,25 @@ def correlation_heatmap(cleaned_df):
     print("The Correlation Matrix Shows no correlation between the numerical features, indicating that they are independent of each other.")
 
 
+def fraud_indication(cleaned_df):
+    """Analyzes the relationship between numerical features and the fraud label."""
+    numerical_features = ["age","transaction_amount","account_balance"]
+    fig,axes = plt.subplots(figsize = (16,8), nrows = 1, ncols = 3)
+    axes = axes.flatten()
+    for i, col in enumerate(numerical_features):
+        sns.boxplot(data=cleaned_df,x="is_fraud",y=col,ax=axes[i])
+        axes[i].set_title(f"Boxplot of {col} by Fraud Label")
+        axes[i].set_xlabel("Is Fraud")
+        axes[i].set_ylabel(col)
+    plt.suptitle("Boxplots of Numerical Features by Fraud Label", fontsize=16)
+    plt.tight_layout()
+    plt.show()
 
+    print("Fraud Indication Analysis Completed")
 
 
 if __name__ == "__main__":
     data_overview(cleaned_df)
     histogram_plots(cleaned_df)
     correlation_heatmap(cleaned_df)
+    fraud_indication(cleaned_df)
