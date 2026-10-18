@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns 
 from data_cleaning import save_cleaned_data, clean_data
 from data_ingestion import ingest_data
-df = ingest_data()
-cleaned_df = clean_data(df)
+
+cleaned_df = clean_data(ingest_data())
 
 def data_overview(cleaned_df):
     

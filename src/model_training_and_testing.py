@@ -7,26 +7,26 @@ from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.svm import LinearSVC
 from xgboost import XGBClassifier
 from sklearn.pipeline import Pipeline
-df = ingest_data()
-df = clean_data(df)
+df = clean_data(ingest_data())
 
-
+def get_models():
+    return {
+        "LogisticRegression": LogisticRegression(),
+        "DecisionTreeClassifier": DecisionTreeClassifier(),
+        "RandomForestClassifier": RandomForestClassifier(),
+        "GradientBoosting":GradientBoostingClassifier(),
+        "LinearSVC":LinearSVC(),
+        "XGBoost": XGBClassifier()
+            }
 
 def model_train(df):
-    preprocessor = preprocess_data(df)
+    preprocessor = preprocess_data()
     X_train, X_test, y_train, y_test = split_data(df)
-    models = {
-    "LogisticRegression": LogisticRegression(),
-    "DecisionTreeClassifier": DecisionTreeClassifier(),
-    "RandomForestClassifier": RandomForestClassifier(),
-    "GradientBoosting":GradientBoostingClassifier(),
-    "LinearSVC":LinearSVC(),
-    "XGBoost": XGBClassifier()
-        }
+    
     
     """  Model training occurs here where the models are fit into the data """
     trained_models = {}
-    for name,model in models.items():
+    for name,model in get_models().items():
         pipeline = Pipeline([
             ("preprocessor", preprocessor),
             ("model",model)
@@ -39,15 +39,14 @@ def model_train(df):
 
 
         
-    return trained_models, X_test, y_test
+    return trained_models,X_test,y_test
     
     
 
 
 
 if __name__ == "__main__":
-    model_train(df)
-    trained_models, X_test, y_test = model_train(df)
+    trained_models,X_test,y_test = model_train(df)
 
     print("Model training completed.")
 

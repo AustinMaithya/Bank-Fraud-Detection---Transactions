@@ -47,7 +47,4 @@ def date_formaatting(cleaned_df):
 
 if __name__ == "__main__":
     clean_data(df)
-    cleaned_df = clean_data(df)
-    date_formaatting(cleaned_df)
-    save_cleaned_data(cleaned_df)
-    print(cleaned_df.head())
+    save_cleaned_data(df)
