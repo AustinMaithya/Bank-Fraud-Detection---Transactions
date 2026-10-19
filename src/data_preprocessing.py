@@ -16,13 +16,13 @@ def preprocess_data():
     #Creating the preprocessing pipeline for numerical features and categorical features 
 
     numerical_pipeline = Pipeline([
-        ('scaler', StandardScaler() ),
-        ('imputer', SimpleImputer(strategy='mean'))
+        ('imputer', SimpleImputer(strategy='mean')),
+        ('scaler', StandardScaler() )
     ])
 
     categorical_pipeline = Pipeline([
-        ('encoder', OneHotEncoder(handle_unknown='ignore')),
-        ('imputer', SimpleImputer(strategy='most_frequent'))
+        ('imputer', SimpleImputer(strategy='most_frequent')),
+        ('encoder', OneHotEncoder(handle_unknown='ignore'))
     ])
 
     preprocessor = ColumnTransformer(transformers=[
@@ -38,20 +38,19 @@ def split_data(df):
     categorical_features = ["gender", "state", "city","bank_branch","account_type", "transaction_date","transaction_device","transaction_location","device_type","transaction_currency"]
     X = df[categorical_features + numerical_features]
     y = df["is_fraud"]
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42,stratify = y)
     print(f"Training set shape: {X_train.shape}, Testing set shape: {X_test.shape}")
     return X_train, X_test, y_train, y_test
 
 
 
-def main():
-    preprocess_data()
-    split_data(df)
-    print("Data Preprocessing Completed")
+
     
     
 
 
 
 if __name__ == "__main__":
-    main()
+    preprocess_data()
+    split_data(df)
+    print("Data Preprocessing Completed")
