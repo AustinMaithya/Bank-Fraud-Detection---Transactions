@@ -20,7 +20,7 @@ def save_model(best_model):
     joblib.dump(best_model,  "Fraud_Detection.pkl")
     print("\n Model Saved Successfully")
 
-
+    return best_model
     
 
 
