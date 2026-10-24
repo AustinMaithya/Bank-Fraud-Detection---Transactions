@@ -89,7 +89,9 @@ def tune_xgboost(X_train,y_train):
     print("\nTOP RANDOMIZED SEARCH RESULTS")
     print(search_results.head(10).to_string(index=False))
 
-    return search.best_estimator_, search_results, search
+    best_model = search.best_estimator_
+
+    return best_model
 
 
 if __name__ ==  "__main__":
