@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-import pickle
+import joblib
 import pandas as pd
+import numpy as np
 
 
 
@@ -12,8 +13,8 @@ app = FastAPI(title="Fraud Detection API")
 
 
 #load Model
-with open ("model\Fraud_Detection.pkl", "rb") as f :
-    model =  pickle.load(f)
+PATH = (r"model\Fraud_Detection.pkl")
+model =  joblib.load(PATH)
 
 
 #Defining what input the model expects 
@@ -41,7 +42,7 @@ def home():
 
 @app.post("/predict")
 def predict_fraud(data: FraudInput):
-    features = [[
+    features = np.array([[
         data.age,
         data.transaction_amount,
         data.account_balance,
@@ -55,10 +56,10 @@ def predict_fraud(data: FraudInput):
         data.transaction_location,
         data.device_type,
         data.transaction_currency
-    ]]
+    ]])
     prediction = model.predict(features)
 
     return {
-        "predicted_fraud": int(prediction[0])
+        "predicted_fraud": (prediction[0])
     }
 
