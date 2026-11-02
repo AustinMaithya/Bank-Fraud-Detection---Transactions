@@ -35,7 +35,7 @@ def preprocess_data():
 def split_data(df):
     """Splits the data into training and testing sets."""
     numerical_features = ["age", "transaction_amount", "account_balance"]
-    categorical_features = ["gender", "state", "city","bank_branch","account_type", "transaction_date","transaction_device","transaction_location","device_type","transaction_currency"]
+    categorical_features = ["gender", "state", "city","bank_branch","account_type","transaction_date","transaction_device","transaction_location","device_type","transaction_currency"]
     X = df[categorical_features + numerical_features]
     y = df["is_fraud"]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42,stratify = y)
@@ -45,12 +45,13 @@ def split_data(df):
 
 
 
-    
+def main():
+    preprocess_data()
+    split_data(df)
+    print("Data Preprocessing Completed")
     
 
 
 
 if __name__ == "__main__":
-    preprocess_data()
-    split_data(df)
-    print("Data Preprocessing Completed")
+    main()

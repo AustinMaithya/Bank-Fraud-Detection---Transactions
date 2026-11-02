@@ -94,14 +94,7 @@ def cross_validation(X_train,y_train):
 
 
     
-
-
-
-
-
-
-
-if __name__ == "__main__":
+def main():
     df = clean_data(ingest_data())
     X_train,X_test,y_train,y_test = split_data(df)
 
@@ -122,6 +115,15 @@ if __name__ == "__main__":
     print(cv_results.to_string(index=False))
 
     print("\nProcess completed.")
+
+
+
+
+
+
+if __name__ == "__main__":
+    main()
+
 
 
 
