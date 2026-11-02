@@ -77,8 +77,12 @@ def fraud_indication(cleaned_df):
     print("Fraud Indication Analysis Completed")
 
 
-if __name__ == "__main__":
+def main():
     data_overview(cleaned_df)
     histogram_plots(cleaned_df)
     correlation_heatmap(cleaned_df)
     fraud_indication(cleaned_df)
+
+
+if __name__ == "__main__":
+    main()
