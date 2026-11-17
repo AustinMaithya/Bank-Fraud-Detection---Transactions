@@ -1,20 +1,21 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+import uvicorn
 import joblib
 import pandas as pd
 import numpy as np
 
 
 
-
-data =  pd.read_csv("C:\\Users\\HP\Desktop\\Machine Learning Projects\\Bank Fraud Detection - Transactions\\data\\cleaned_data.csv")
+#importing the data
+data =  pd.read_csv("data/cleaned_data.csv")
 
 app = FastAPI(title="Fraud Detection API")
 
 
 #load Model
-PATH = (r"model\Fraud_Detection.pkl")
-model =  joblib.load(PATH)
+with open ("model/Fraud_Detection.pkl", "rb") as f:
+    model = joblib.load(f)
 
 
 #Defining what input the model expects 
@@ -57,9 +58,12 @@ def predict_fraud(data: FraudInput):
         data.device_type,
         data.transaction_currency
     ]])
-    prediction = model.predict(features)
+    prediction = model.predict(features)[0]
 
     return {
-        "predicted_fraud": (prediction[0])
+        "predicted_fraud": prediction
     }
 
+
+if __name__ == "__main__":
+    uvicorn.run("fraud_detection_api:app", host="0.0.0.0", port=8000)
